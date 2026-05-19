@@ -1,0 +1,5 @@
+train: C:\Users\david\OneDrive\Escritorio\yolov5 pv2\yolov5\custom_data\Pokemon\images\train
+val: C:\Users\david\OneDrive\Escritorio\yolov5 pv2\yolov5\custom_data\Pokemon\images\val
+nc: 1
+names:
+- Pokemon
