@@ -52,23 +52,23 @@ def main():
         for *box, conf, cls in detections.tolist():
             x1, y1, x2, y2 = map(int, box)
             label = f"{results.names[int(cls)]}: {conf:.2f}"
-            color = (0, 255, 0) # Green box
-            
+            color = (0, 255, 0)  # Green box
+
             # Draw bounding box
             cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
-            
+
             # Setup text properties
             font = cv2.FONT_HERSHEY_SIMPLEX
             font_scale = 0.6
             thickness = 2
             (text_width, text_height), baseline = cv2.getTextSize(label, font, font_scale, thickness)
-            
+
             # Calculate text position (above the box, or inside if too close to top)
             y_text = y1 - 10 if y1 - 10 > text_height else y1 + text_height + 10
-            
+
             # Draw text background
             cv2.rectangle(frame, (x1, y_text - text_height - 5), (x1 + text_width, y_text + baseline - 5), color, -1)
-            
+
             # Draw text
             cv2.putText(
                 frame,
@@ -76,7 +76,7 @@ def main():
                 (x1, y_text - 5),
                 font,
                 font_scale,
-                (0, 0, 0), # Black text for better contrast against green
+                (0, 0, 0),  # Black text for better contrast against green
                 thickness,
                 cv2.LINE_AA,
             )
