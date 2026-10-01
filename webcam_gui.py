@@ -336,7 +336,6 @@ class YOLOWebcamApp:
         )
         self.info_console.grid(row=8, column=0, columnspan=2, sticky="ew", pady=(0, 12))
 
-
         self.video_panel = tk.Label(self.root, bg=self.BORDER, bd=2, relief="sunken")
         self.video_panel.grid(row=3, column=0, padx=(12, 6), pady=(0, 12), sticky="nsew")
         self.root.grid_rowconfigure(3, weight=1, minsize=500)
@@ -390,7 +389,9 @@ class YOLOWebcamApp:
         self.sidebar_log.insert("end", "[00:00] HUD initialized...\n")
         self.sidebar_log.config(state="disabled")
 
-        scrollbar = tk.Scrollbar(log_frame, command=self.sidebar_log.yview, bg=self.BORDER, activebackground=self.ACCENT)
+        scrollbar = tk.Scrollbar(
+            log_frame, command=self.sidebar_log.yview, bg=self.BORDER, activebackground=self.ACCENT
+        )
         scrollbar.grid(row=0, column=1, sticky="ns")
         self.sidebar_log.config(yscrollcommand=scrollbar.set)
 
@@ -401,9 +402,19 @@ class YOLOWebcamApp:
         label.grid(row=row, column=0, sticky="w", pady=5)
         var = tk.StringVar(value=default)
         setattr(self, var_name, var)
-        entry = tk.Entry(parent, textvariable=var, width=width, bg=self.PANEL, fg=self.TEXT, insertbackground=self.TEXT,
-                         relief="flat", highlightthickness=1, highlightbackground=self.BORDER, highlightcolor=self.ACCENT,
-                         font=self.small_font)
+        entry = tk.Entry(
+            parent,
+            textvariable=var,
+            width=width,
+            bg=self.PANEL,
+            fg=self.TEXT,
+            insertbackground=self.TEXT,
+            relief="flat",
+            highlightthickness=1,
+            highlightbackground=self.BORDER,
+            highlightcolor=self.ACCENT,
+            font=self.small_font,
+        )
         entry.grid(row=row, column=1, sticky="ew", padx=10)
 
     def load_model(self):
@@ -493,7 +504,7 @@ class YOLOWebcamApp:
 
         model_info_path = os.path.join(repo_dir, "custom_data", "model_info.yaml")
         if os.path.isfile(model_info_path):
-            with open(model_info_path, "r", encoding="utf-8") as f:
+            with open(model_info_path, encoding="utf-8") as f:
                 model_info = yaml.safe_load(f) or {}
         else:
             model_info = {}
@@ -652,7 +663,9 @@ class YOLOWebcamApp:
             thickness = 2
             (text_width, text_height), baseline = cv2.getTextSize(label, font, font_scale, thickness)
             y_text = y1 - 14 if y1 - 14 > text_height else y1 + text_height + 14
-            cv2.rectangle(frame, (x1, y_text - text_height - 6), (x1 + text_width + 6, y_text + baseline - 6), (20, 25, 45), -1)
+            cv2.rectangle(
+                frame, (x1, y_text - text_height - 6), (x1 + text_width + 6, y_text + baseline - 6), (20, 25, 45), -1
+            )
             cv2.putText(frame, label, (x1 + 3, y_text - 6), font, font_scale, (235, 245, 255), thickness, cv2.LINE_AA)
         return frame
 
@@ -671,7 +684,7 @@ class YOLOWebcamApp:
                 count = len(results.xyxy[0])
                 detected_names = [results.names[int(cls)] for *_, cls in results.xyxy[0].cpu().numpy()]
             except Exception as e:
-                self.status_label.config(text=f"STATUS: INFERENCE ERROR")
+                self.status_label.config(text="STATUS: INFERENCE ERROR")
                 print(e)
                 break
 
@@ -748,8 +761,10 @@ class YOLOWebcamApp:
 
         cv2.addWeighted(overlay, 0.12, frame, 0.88, 0, frame)
 
-        cv2.putText(frame, "SYSTEM CHECK: ONLINE", (16, 34), cv2.FONT_HERSHEY_DUPLEX, 0.7, (92, 255, 178), 1, cv2.LINE_AA)
-        cv2.putText(frame, f"EDGE MODE: ACTIVE", (16, 60), cv2.FONT_HERSHEY_DUPLEX, 0.6, (163, 255, 210), 1, cv2.LINE_AA)
+        cv2.putText(
+            frame, "SYSTEM CHECK: ONLINE", (16, 34), cv2.FONT_HERSHEY_DUPLEX, 0.7, (92, 255, 178), 1, cv2.LINE_AA
+        )
+        cv2.putText(frame, "EDGE MODE: ACTIVE", (16, 60), cv2.FONT_HERSHEY_DUPLEX, 0.6, (163, 255, 210), 1, cv2.LINE_AA)
 
         return frame
 
@@ -768,7 +783,7 @@ class YOLOWebcamApp:
 def main():
     root = tk.Tk()
     root.geometry("1400x900")
-    app = YOLOWebcamApp(root)
+    YOLOWebcamApp(root)
     root.mainloop()
 
 
