@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0c1f6b" />
+    <title>Sheik Detector</title>
+    <meta name="description" content="In-browser object detection with YOLOX-nano, styled after Zelda: The Minish Cap." />
+    <link rel="icon" type="image/png" href="/sprites/heart-container-3.png" />
+  </head>
+  <body>
+    <!-- 1. Title screen -->
+    <section id="screen-title" class="screen is-active" aria-label="Title screen">
+      <div class="scene scene-title"></div>
+      <div class="rays" aria-hidden="true"></div>
+      <div class="title-content">
+        <img class="logo" src="/sprites/logo-minishcap.png" alt="The Legend of Zelda: The Minish Cap" />
+        <h1 class="banner banner-red"><span>SHEIK DETECTOR</span></h1>
+        <p class="subtitle">The sharpest eye in all of Hyrule</p>
+        <button id="btn-press-start" class="press-start" type="button">
+          <img src="/sprites/press-start.png" alt="Press Start" />
+        </button>
+      </div>
+      <p class="credits-mini">YOLOX-nano · COCO · runs entirely in your browser</p>
+    </section>
+
+    <!-- 2. Quest select (the "Choose a file" screen) -->
+    <section id="screen-menu" class="screen" aria-label="Main menu">
+      <div class="scene scene-fileselect"></div>
+      <div class="menu-layout">
+        <h2 class="banner banner-blue"><span>CHOOSE A QUEST</span></h2>
+
+        <div class="menu-body">
+          <nav class="menu-options" aria-label="Modes">
+            <button class="zbtn zbtn-green menu-item" data-mode="camera" type="button">
+              <img class="cursor" src="/sprites/link-walk-0.png" alt="" />Camera
+            </button>
+            <button class="zbtn zbtn-green menu-item" data-mode="image" type="button">
+              <img class="cursor" src="/sprites/link-walk-0.png" alt="" />Image
+            </button>
+            <button class="zbtn zbtn-green menu-item" data-mode="options" type="button">
+              <img class="cursor" src="/sprites/link-walk-0.png" alt="" />Options
+            </button>
+          </nav>
+
+          <div class="panel-dark menu-info">
+            <p id="menu-description">Use your device camera to detect objects in real time.</p>
+            <div class="loader" id="model-loader">
+              <div class="hearts" id="loader-hearts"></div>
+              <p id="loader-text">Awakening the Eye of Sheik…</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-dark options-panel" id="options-panel" hidden>
+          <h3 class="options-title">OPTIONS</h3>
+          <label class="opt">
+            <span>Min. confidence</span>
+            <input id="opt-score" type="range" min="0.05" max="0.95" step="0.05" value="0.35" />
+            <output id="opt-score-out">0.35</output>
+          </label>
+          <label class="opt">
+            <span>NMS threshold</span>
+            <input id="opt-nms" type="range" min="0.1" max="0.9" step="0.05" value="0.45" />
+            <output id="opt-nms-out">0.45</output>
+          </label>
+          <label class="opt opt-check">
+            <input id="opt-rays" type="checkbox" checked />
+            <span>Minish Woods light rays</span>
+          </label>
+          <button class="zbtn zbtn-orange" id="btn-options-close" type="button">Done</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Detection -->
+    <section id="screen-detect" class="screen" aria-label="Detection">
+      <div class="scene scene-pattern"></div>
+      <header class="detect-header">
+        <button class="tab-btn" id="btn-back" type="button" title="Back to menu">
+          <img src="/sprites/tab-l.png" alt="Back" />
+        </button>
+        <h2 class="banner banner-blue"><span id="detect-title">CAMERA</span></h2>
+        <button class="tab-btn" id="btn-flip" type="button" title="Switch camera">
+          <img src="/sprites/tab-r.png" alt="Switch camera" />
+        </button>
+      </header>
+
+      <main class="detect-layout">
+        <div class="stone-frame viewport-frame">
+          <div class="viewport" id="viewport">
+            <video id="video" playsinline muted></video>
+            <canvas id="canvas"></canvas>
+            <label class="dropzone" id="dropzone" hidden>
+              <input id="file-input" type="file" accept="image/*" />
+              <img src="/sprites/item-18.png" alt="" class="dz-icon" />
+              <span>Tap to choose an image<br />or drop it here</span>
+            </label>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="panel-dark inventory">
+            <h3>INVENTORY</h3>
+            <ul id="inventory-list"></ul>
+            <p class="empty" id="inventory-empty">No items yet…</p>
+          </div>
+          <div class="panel-dark stats">
+            <div><img src="/sprites/gem-0.png" alt="" /> <span id="stat-count">0</span> items</div>
+            <div><img src="/sprites/gem-3.png" alt="" /> <span id="stat-ms">–</span> ms</div>
+            <div><img src="/sprites/gem-5.png" alt="" /> <span id="stat-fps">–</span> FPS</div>
+          </div>
+          <div class="actions">
+            <button class="zbtn zbtn-green" id="btn-snapshot" type="button">Save</button>
+            <button class="zbtn zbtn-orange" id="btn-pause" type="button">Pause</button>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="textbar" role="status" aria-live="polite">
+        <span id="message"></span><img class="next" src="/sprites/heart-0.png" alt="" />
+      </footer>
+    </section>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

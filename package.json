@@ -1,0 +1,21 @@
+{
+  "name": "sheik-detector-web",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "YOLOX-nano object detection in the browser, styled after Zelda: The Minish Cap",
+  "scripts": {
+    "predev": "node scripts/copy-ort.js",
+    "dev": "vite",
+    "prebuild": "node scripts/copy-ort.js",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/pixelify-sans": "5.3.0",
+    "onnxruntime-web": "1.30.0"
+  },
+  "devDependencies": {
+    "vite": "8.3.4"
+  }
+}
