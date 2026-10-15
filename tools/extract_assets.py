@@ -109,7 +109,11 @@ def main():
 
     # --- Logos / titles ---
     zelda = crop(ts, 280, 439, 168, 81)
-    save(key_out(zelda, zelda.getpixel((0, 0))[:3], tol=8), "logo-zelda.png")
+    # key_all: the sky also shows through closed counters (inside Z, D, A), out of the flood fill's reach
+    save(key_all(zelda, zelda.getpixel((0, 0))[:3], tol=8), "logo-zelda.png")
+    # Japanese "Fushigi no Boushi" logo (second variant, with the dark outline around Ezlo)
+    jp = crop(ts, 275, 333, 179, 101)
+    save(key_out(jp, jp.getpixel((0, 0))[:3], tol=8), "logo-fushigi.png")
     save(key_out(crop(bg, 371, 1006, 248, 128), white, tol=8), "logo-minishcap.png")
     press = crop(ts, 381, 189, 89, 18)
     save(key_out(press, press.getpixel((0, 0))[:3], tol=8), "press-start.png")

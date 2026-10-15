@@ -103,9 +103,18 @@ button { font: inherit; color: inherit; cursor: pointer; }
   padding: 16px;
   text-align: center;
 }
-.logo {
-  width: min(90vw, calc(248 * var(--px) * 1.1));
+/* Japanese title: ゼルダの伝説 on top, ふしぎのぼうし with Ezlo below */
+.logo-jp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   filter: drop-shadow(0 calc(var(--px) * 2) 0 rgba(0, 0, 0, 0.35));
+}
+.logo-jp img { display: block; max-width: 90vw; width: auto; }
+.logo-zelda { height: min(20vh, calc(81 * var(--px) * 0.8)); }
+.logo-fushigi {
+  height: min(27vh, calc(101 * var(--px) * 0.85));
+  margin-top: calc(var(--px) * -3);
   animation: float 3s ease-in-out infinite;
 }
 @keyframes float { 50% { transform: translateY(calc(var(--px) * -3)); } }

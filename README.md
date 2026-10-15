@@ -8,7 +8,7 @@ It runs **YOLOX-nano** (trained on COCO, 80 classes) with
 the device, and the site is fully static, so it deploys to Vercel with no backend.
 
 <p align="center">
-  <img src="docs/screenshots/title.png" alt="Title screen: Minish Woods with animated light rays and the Minish Cap logo" width="100%" />
+  <img src="docs/screenshots/title.png" alt="Japanese title screen: Minish Woods with animated light rays, the ゼルダの伝説 logo and ふしぎのぼうし with Ezlo" width="100%" />
 </p>
 
 ## Features
@@ -104,6 +104,6 @@ webcam window). It lives untouched in [`PC-yolo-old/`](PC-yolo-old/). See its
 - *The Legend of Zelda: The Minish Cap* graphics © Nintendo / Capcom. This is a non-commercial fan
   project; it is not affiliated with or endorsed by Nintendo.
 - Sprite sheets ripped by **EternalLight** (file select, pause menu), **Chaotic Death**
-  (backgrounds and overlays), **Aquatics64** (font) and **Yue** (title screen), from
-  The Spriters Resource.
+  (backgrounds and overlays), **Aquatics64** (font) and **Yue** (Japanese title screen and
+  logos), from The Spriters Resource.
 - UI font: [Pixelify Sans](https://fonts.google.com/specimen/Pixelify+Sans) (SIL Open Font License).
