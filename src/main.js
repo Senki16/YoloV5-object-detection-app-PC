@@ -23,13 +23,29 @@ const canvas = $('#canvas');
 const ctx = canvas.getContext('2d');
 const video = $('#video');
 
+// ---------------------------------------------------------------- preload
+// Backgrounds and animation frames are set from CSS, so the browser would only fetch each one the
+// first time it is shown, leaving the screen blank for a moment. Fetch and decode them up front.
+const BACKGROUNDS = [
+  'bg-title', 'bg-pattern',
+  ...[0, 1, 2, 3].map((i) => `bg-fileselect-${i}`),
+  ...[0, 1, 2, 3].map((i) => `rays-${i}`),
+];
+const preloaded = BACKGROUNDS.map((name) => {
+  const img = new Image();
+  img.src = `/sprites/${name}.png`;
+  return img.decode().catch(() => {});
+});
+const fileSelectReady = Promise.all(preloaded.slice(2, 6));
+
 // ---------------------------------------------------------------- screens
 function show(id) {
   document.querySelectorAll('.screen').forEach((s) => s.classList.toggle('is-active', s.id === id));
 }
 
 // ---------------------------------------------------------------- title
-function startGame() {
+async function startGame() {
+  await fileSelectReady;
   show('screen-menu');
   selectMenuItem(0);
   document.querySelectorAll('.menu-item')[0].focus();
